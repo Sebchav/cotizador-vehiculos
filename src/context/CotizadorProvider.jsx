@@ -5,17 +5,28 @@ const CotizadorContext = createContext();
 // eslint-disable-next-line react/prop-types
 const CotizadorProvider = ({children}) => {
 
-    const [modal, setModal] = useState(false);
+    const [datos, setDatos] = useState({
+        marca: "",
+        year: "",
+        plan: ""
+    })
 
-    const cambiarState = ()=>{
-        setModal(!modal)
+    const [error, setError] = useState("")
+
+    const handleChangeDatos = e => {
+        setDatos({
+            ...datos,
+            [e.target.name] : e.target.value
+        })
     }
 
     return (
         <CotizadorContext.Provider
             value={{
-               modal,
-               cambiarState
+                datos,
+                handleChangeDatos,
+                error,
+                setError
             }}
         >
             {children}
